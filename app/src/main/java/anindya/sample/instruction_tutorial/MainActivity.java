@@ -1,6 +1,7 @@
 package anindya.sample.instruction_tutorial;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -68,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         final CoordinatorLayout ParentLayout = (CoordinatorLayout) findViewById(R.id.activity_main);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        //create tutorial animation
+        createTutorialAnimation();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +165,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // create animation
+    public void createTutorialAnimation(){
+        TapTargetView.showFor(this,
+                TapTarget.forView(fab, "Create Post", "Tap on this to create post")
+                        // All options below are optional
+                        .outerCircleColor(R.color.md_blue_700)      // Specify a color for the outer circle
+                        .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                        .targetCircleColor(R.color.md_white_1000)   // Specify a color for the target circle
+                        .titleTextSize(24)                  // Specify the size (in sp) of the title text
+                        .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                        .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                        .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                        .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                        .dimColor(R.color.md_black_1000)            // If set, will dim behind the view with 30% opacity of the given color
+                        .drawShadow(true)                   // Whether to draw a drop shadow or not
+                        .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                        .tintTarget(true)                   // Whether to tint the target view's color
+                        .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                        .targetRadius(40),                  // Specify the target radius (in dp)
+                new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);      // This call is optional
+                    }
+                });
     }
 
     // initialize navigation drawer
